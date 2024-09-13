@@ -162,7 +162,9 @@
   }
 
   .profile-banner {
-    @apply h-[120px] w-full bg-gradient-mesh bg-cover bg-no-repeat;
+    @apply h-[120px] w-full bg-cover bg-no-repeat;
+    background-image: linear-gradient(to left, #70c3c5, #81b1a8, #929f8c);
+
   }
 
   .profile {
@@ -170,7 +172,7 @@
   }
 
   .profile-img {
-    @apply flex-center absolute -top-8 size-24 rounded-full bg-gray-100 border-8 border-white p-2 shadow-profile;
+    @apply flex-center absolute -top-8 size-24 rounded-full bg-[#fefdfc] border-8 border-white p-2 shadow-profile;
   }
 
   .profile-details {
