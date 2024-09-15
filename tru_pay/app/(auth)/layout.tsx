@@ -1,4 +1,5 @@
-import { Main } from "next/document";
+import Image from "next/image";
+
 
 export default function RootLayout({
    children,
@@ -6,8 +7,11 @@ export default function RootLayout({
    children: React.ReactNode;
 }>) {
    return (
-      <main>
+      <main className="font-inter">
+
          {children}
+
+
       </main>
    );
 }
