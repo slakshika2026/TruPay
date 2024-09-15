@@ -6,15 +6,27 @@ import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import Footer from '../Footer';
 
 
 
+
+interface User {
+  firstName: string;
+  lastName: string;
+  name: string;
+  $id: string;
+  email: string;
+  userId: string;
+  dwollaCustomerUrl: string;
+  dwollaCustomerId: string;
+  address1: string;
+  city: string;
+  // Add other required properties here
+}
 
 interface SidebarProps {
-  user: {
-    firstName: string;
-    lastName: string;
-  };
+  user: User;
 }
 
 const Sidebar = ({ user }: SidebarProps) => {
@@ -54,10 +66,10 @@ const Sidebar = ({ user }: SidebarProps) => {
             </Link>
           );
         })}
-        USER
+
       </nav>
 
-      FOOTER
+      <Footer user={user} />
     </section>
   );
 };
