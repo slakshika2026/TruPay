@@ -7,29 +7,33 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import Footer from './Footer';
+import PlaidLink from './PlaidLink'
 
 
 
 
-interface User {
-  firstName: string;
-  lastName: string;
-  name: string;
-  $id: string;
-  email: string;
-  userId: string;
-  dwollaCustomerUrl: string;
-  dwollaCustomerId: string;
-  address1: string;
-  city: string;
-  // Add other required properties here
-}
+// interface User {
+//   firstName: string;
+//   lastName: string;
+//   name: string;
+//   $id: string;
+//   email: string;
+//   userId: string;
+//   dwollaCustomerUrl: string;
+//   dwollaCustomerId: string;
+//   address1: string;
+//   city: string;
+//   state: string;
+//   postalCode: string;
+//   dateOfBirth: string;
+//   ssn: string;
+// }
 
-interface SidebarProps {
-  user: User;
-}
+// interface SidebarProps {
+//   user: User;
+// }
 
-const Sidebar = ({ user }: SidebarProps) => {
+const Sidebar = ({ user }: SiderbarProps) => {
   const pathname = usePathname();
   return (
     <section className="sidebar">
@@ -64,14 +68,15 @@ const Sidebar = ({ user }: SidebarProps) => {
                 {item.label}
               </p>
             </Link>
-          );
+          )
         })}
 
+        <PlaidLink user={user} />
       </nav>
 
-      <Footer user={user} />
+      <Footer user={user} type={'mobile'} />
     </section>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar

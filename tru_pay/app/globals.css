@@ -206,11 +206,11 @@
   }
 
   .transactions-account {
-    @apply flex flex-col justify-between gap-4 rounded-lg border-y bg-blue-600 px-4 py-5 md:flex-row;
+    @apply flex flex-col justify-between gap-4 rounded-lg border-y bg-[#70c3c5] px-4 py-5 md:flex-row;
   }
 
   .transactions-account-balance {
-    @apply flex-center flex-col gap-2 rounded-md bg-blue-25/20 px-4 py-2 text-white;
+    @apply flex-center flex-col gap-2 rounded-md px-4 py-2 bg-[#81b1a8] text-white;
   }
 
   .header-box {
@@ -374,6 +374,7 @@
   }
 
   .sidebar-logo {
+    /* Ensure Tailwind CSS JIT mode or PostCSS setup is configured correctly */
     @apply 2xl:text-26 font-ibm-plex-serif text-[26px] font-bold text-black-1 max-xl:hidden;
   }
 
