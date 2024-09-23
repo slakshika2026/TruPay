@@ -1,7 +1,6 @@
 
-// import { Pagination } from '@/components/Pagination';
-
 import HeaderBox from '@/components/ui/HeaderBox';
+import { Pagination } from '@/components/ui/Pagination';
 import TransactionsTable from '@/components/ui/TransactionsTable';
 import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
 import { getLoggedInUser } from '@/lib/actions/user.actions';
@@ -46,7 +45,7 @@ const TransactionHistory = async ({ searchParams: { id, page } }: SearchParamPro
                <div className="flex flex-col gap-2">
                   <h2 className="text-18 font-bold text-white">{account?.data.name}</h2>
                   <p className="text-14 text-blue-25">
-                     {accountsData.officialName}
+                     {account?.data.officialName}
                   </p>
                   <p className="text-14 font-semibold tracking-[1.1px] text-white">
                      ●●●● ●●●● ●●●● {account?.data.mask}
@@ -63,11 +62,12 @@ const TransactionHistory = async ({ searchParams: { id, page } }: SearchParamPro
                <TransactionsTable
                   transactions={currentTransactions}
                />
-               {/* {totalPages > 1 && (
-              <div className="my-4 w-full">
-                <Pagination totalPages={totalPages} page={currentPage} />
-              </div>
-            )} */}
+               {totalPages > 1 && (
+                  <div className="my-4 w-full">
+                     <Pagination
+                        totalPages={totalPages} page={currentPage} />
+                  </div>
+               )}
             </section>
          </div>
       </div>

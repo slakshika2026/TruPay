@@ -23,10 +23,8 @@ import {
 } from "./form";
 import { Input } from "./input";
 import { BankDropdown } from "./BankDropdown";
-import { Button } from "./button";
 import { Textarea } from "./textarea";
-
-
+import { Button } from "./button";
 
 const formSchema = z.object({
    email: z.string().email("Invalid email address"),
@@ -59,24 +57,38 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
          const receiverBank = await getBankByAccountId({
             accountId: receiverAccountId,
          });
+
+         // Validate if receiverBank and its userId are available
+         if (!receiverBank || !receiverBank.userId || !receiverBank.userId.$id) {
+            console.error("Missing receiver bank or user ID", receiverBank);
+            throw new Error("Receiver bank details are incomplete.");
+         }
+
          const senderBank = await getBank({ documentId: data.senderBank });
+
+         // Validate if senderBank and its fundingSourceUrl are available
+         if (!senderBank || !senderBank.fundingSourceUrl) {
+            console.error("Missing sender bank or funding source", senderBank);
+            throw new Error("Sender bank details are incomplete.");
+         }
 
          const transferParams = {
             sourceFundingSourceUrl: senderBank.fundingSourceUrl,
             destinationFundingSourceUrl: receiverBank.fundingSourceUrl,
             amount: data.amount,
          };
-         // create transfer
+
+         // Create transfer
          const transfer = await createTransfer(transferParams);
 
-         // create transfer transaction
+         // Create transfer transaction if transfer is successful
          if (transfer) {
             const transaction = {
                name: data.name,
                amount: data.amount,
                senderId: senderBank.userId.$id,
                senderBankId: senderBank.$id,
-               receiverId: receiverBank.userId.$id,
+               receiverId: receiverBank.userId.$id,  // Ensure receiverId is set properly
                receiverBankId: receiverBank.$id,
                email: data.email,
             };
@@ -197,7 +209,7 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
                   <FormItem className="border-t border-gray-200">
                      <div className="payment-transfer_form-item pb-5 pt-6">
                         <FormLabel className="text-14 w-full max-w-[280px] font-medium text-gray-700">
-                           Receiver&apos;s Plaid Sharable Id
+                           Receiver&apos;s Sharable Id
                         </FormLabel>
                         <div className="flex w-full flex-col">
                            <FormControl>
@@ -239,7 +251,7 @@ const PaymentTransferForm = ({ accounts }: PaymentTransferFormProps) => {
             />
 
             <div className="payment-transfer_btn-box">
-               <Button type="submit" className="payment-transfer_btn">
+               <Button type="submit" className="payment-transfer_btn bg-bankGradient">
                   {isLoading ? (
                      <>
                         <Loader2 size={20} className="animate-spin" /> &nbsp; Sending...

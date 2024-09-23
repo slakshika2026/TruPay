@@ -7,9 +7,9 @@ import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
 import RecentTransactions from '@/components/ui/RecentTransactions';
 
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
-   
+
    const currentPage = Number(page as string) || 1;
-   
+
    const loggedIn = await getLoggedInUser();
    const accounts = await getAccounts({
       userId: loggedIn.$id
@@ -52,7 +52,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
          </div>
          <RightSideBar
             user={loggedIn}
-            transactions={accounts?.transactions}
+            transactions={account?.transactions}
             banks={accountsData?.slice(0, 2)}
          />
       </section>
