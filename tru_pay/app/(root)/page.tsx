@@ -7,22 +7,22 @@ import { getAccount, getAccounts } from '@/lib/actions/bank.actions';
 import RecentTransactions from '@/components/ui/RecentTransactions';
 
 const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
-   
+
    const currentPage = Number(page as string) || 1;
-   
+
    const loggedIn = await getLoggedInUser();
    const accounts = await getAccounts({
       userId: loggedIn.$id
    })
 
    if (!accounts) return;
-
+   const accountsData = accounts?.data;
    const appwriteItemId = (id as string) || accounts?.data
    [0]?.appwriteItemId;
 
    const account = await getAccount({ appwriteItemId });
 
-   const accountsData = accounts?.data;
+
 
 
 
@@ -38,7 +38,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
                />
                <TotalBalanceBox
                   accounts={accountsData}
-                  totalBanks={account?.totalBanks}
+                  totalBanks={accounts?.totalBanks}
                   totalCurrentBalance={accounts?.totalCurrentBalance}
                />
             </header>
@@ -52,7 +52,7 @@ const Home = async ({ searchParams: { id, page } }: SearchParamProps) => {
          </div>
          <RightSideBar
             user={loggedIn}
-            transactions={accounts?.transactions}
+            transactions={account?.transactions}
             banks={accountsData?.slice(0, 2)}
          />
       </section>
