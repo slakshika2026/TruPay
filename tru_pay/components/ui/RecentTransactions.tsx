@@ -49,6 +49,7 @@ const RecentTransactions = ({
 
             {accounts.map((account: Account) => (
                <TabsContent
+                  key={account.id}
                   value={account.appwriteItemId}
                   className="space-y-4">
                   <BankInfo
